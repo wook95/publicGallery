@@ -14,6 +14,7 @@
 		1E562C7E81854DC43E2000A4 /* libPods-wooksPublicGallery.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08E22570E572079F152893BA /* libPods-wooksPublicGallery.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		837AA411746CD760CFE65ABB /* libPods-wooksPublicGallery-wooksPublicGalleryTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F396A4C81F0BB84029333A2 /* libPods-wooksPublicGallery-wooksPublicGalleryTests.a */; };
+		EA7A4A8A27D648FC0050B9E1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EA7A4A8927D648FC0050B9E1 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		3B2413D41099D2C41D524780 /* Pods-wooksPublicGallery-wooksPublicGalleryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wooksPublicGallery-wooksPublicGalleryTests.debug.xcconfig"; path = "Target Support Files/Pods-wooksPublicGallery-wooksPublicGalleryTests/Pods-wooksPublicGallery-wooksPublicGalleryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = wooksPublicGallery/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE06E8FAC892FBA99EA6DE4F /* Pods-wooksPublicGallery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wooksPublicGallery.debug.xcconfig"; path = "Target Support Files/Pods-wooksPublicGallery/Pods-wooksPublicGallery.debug.xcconfig"; sourceTree = "<group>"; };
+		EA7A4A8927D648FC0050B9E1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EE128C69A04E934C0046404D /* Pods-wooksPublicGallery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wooksPublicGallery.release.xcconfig"; path = "Target Support Files/Pods-wooksPublicGallery/Pods-wooksPublicGallery.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,6 +92,7 @@
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				EA7A4A8927D648FC0050B9E1 /* GoogleService-Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
@@ -114,7 +117,6 @@
 				3B2413D41099D2C41D524780 /* Pods-wooksPublicGallery-wooksPublicGalleryTests.debug.xcconfig */,
 				07B398642CFFB61177A18BF3 /* Pods-wooksPublicGallery-wooksPublicGalleryTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -245,6 +247,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				EA7A4A8A27D648FC0050B9E1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
