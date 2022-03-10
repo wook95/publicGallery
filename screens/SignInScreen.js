@@ -27,14 +27,27 @@ const SignInScreen = ({ navigation, route }) => {
   };
   const submitForm = async () => {
     Keyboard.dismiss();
-    const { email, password } = form;
-    const info = { email, password };
+    const { email, password, confirmPassword } = form;
+
+    if (isSignUp && confirmPassword !== password) {
+      Alert.alert('실패', '비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
     setIsLoading(true);
+    const info = { email, password };
     try {
       const { user } = isSignUp ? await signUp(info) : await signIn(info);
       console.log(user);
     } catch (e) {
-      Alert.alert('실패');
+      const messages = {
+        'auth/email-already-in-use': '이미 가입된 이메일입니다.',
+        'auth/wrong-password': '잘못된 비밀번호 입니다.',
+        'auth/user-not-found': '존재하지 않는 계정입니다.',
+        'auth/invalid-email': '유효하지 않은 이메일 주소입니다.',
+      };
+      const msg = messages[e.code] || `${isSignUp ? '가입' : '로그인'} 실패`;
+      Alert.alert('실패', msg);
       console.log(e);
     } finally {
       setIsLoading(false);
