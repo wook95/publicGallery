@@ -5,20 +5,24 @@ import { signOut } from '../lib/auth';
 import { createUser } from '../lib/user';
 import BorderedInput from './BorderedInput';
 import CustomButton from './CustomButton';
+import { useUserContext } from '../contexts/UserContext';
 
 const SetupProfile = () => {
   const [displayName, setDisplayName] = useState('');
+  const { setUser } = useUserContext();
   const navigation = useNavigation();
 
   const { params } = useRoute();
   const { uid } = params || {};
 
   const submitForm = () => {
-    createUser({
+    const user = {
       id: uid,
       displayName,
       photoURL: null,
-    });
+    };
+    createUser(user);
+    setUser(user);
   };
   const cancelForm = () => {
     signOut();

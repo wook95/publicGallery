@@ -13,6 +13,7 @@ import SignForm from '../components/SignForm';
 import SignButtons from '../components/SignButtons';
 import { signIn, signUp } from '../lib/auth';
 import { getUser } from '../lib/user';
+import { useUserContext } from '../contexts/UserContext';
 
 const SignInScreen = ({ navigation, route }) => {
   const { isSignUp } = route.params ?? {};
@@ -22,6 +23,7 @@ const SignInScreen = ({ navigation, route }) => {
     confirmPassword: '',
   });
   const [isLoading, setIsLoading] = useState();
+  const { setUser } = useUserContext();
 
   const createChangeTextHandler = name => value => {
     setForm({ ...form, [name]: value });
@@ -41,6 +43,7 @@ const SignInScreen = ({ navigation, route }) => {
       const { user } = isSignUp ? await signUp(info) : await signIn(info);
       const profile = await getUser(user.uid);
       if (!profile) navigation.navigate('Welcome', { uid: user.uid });
+      else setUser(profile);
     } catch (e) {
       const messages = {
         'auth/email-already-in-use': '이미 가입된 이메일입니다.',
