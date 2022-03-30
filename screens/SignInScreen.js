@@ -42,9 +42,11 @@ const SignInScreen = ({ navigation, route }) => {
     try {
       const { user } = isSignUp ? await signUp(info) : await signIn(info);
       const profile = await getUser(user.uid);
+      setIsLoading(false);
       if (!profile) navigation.navigate('Welcome', { uid: user.uid });
       else setUser(profile);
     } catch (e) {
+      setIsLoading(false);
       const messages = {
         'auth/email-already-in-use': '이미 가입된 이메일입니다.',
         'auth/wrong-password': '잘못된 비밀번호 입니다.',
@@ -54,8 +56,6 @@ const SignInScreen = ({ navigation, route }) => {
       const msg = messages[e.code] || `${isSignUp ? '가입' : '로그인'} 실패`;
       Alert.alert('실패', msg);
       console.log(e);
-    } finally {
-      setIsLoading(false);
     }
   };
 
