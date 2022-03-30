@@ -4,6 +4,7 @@ import { StyleSheet, TextInput } from 'react-native';
 const BorderedInput = ({ hasMarginBottom, ...textInputProps }, ref) => {
   return (
     <TextInput
+      autoCapitalize='none'
       style={[styles.input, hasMarginBottom && styles.margin]}
       ref={ref}
       {...textInputProps}

@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import SignForm from '../components/SignForm';
 import SignButtons from '../components/SignButtons';
 import { signIn, signUp } from '../lib/auth';
+import { getUser } from '../lib/user';
 
 const SignInScreen = ({ navigation, route }) => {
   const { isSignUp } = route.params ?? {};
@@ -38,7 +39,8 @@ const SignInScreen = ({ navigation, route }) => {
     const info = { email, password };
     try {
       const { user } = isSignUp ? await signUp(info) : await signIn(info);
-      console.log(user);
+      const profile = await getUser(user.uid);
+      if (!profile) navigation.navigate('Welcome', { uid: user.uid });
     } catch (e) {
       const messages = {
         'auth/email-already-in-use': '이미 가입된 이메일입니다.',

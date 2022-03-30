@@ -12,7 +12,6 @@ const SignForm = ({ isSignUp, onSubmit, form, createChangeTextHandler }) => {
         placeholder='이메일'
         value={form.email}
         onChangeText={createChangeTextHandler('email')}
-        autoCapitalize='none'
         autoCorrect={false}
         autoCompleteType='email'
         keyboardType='email-address'
