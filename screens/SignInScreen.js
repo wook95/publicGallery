@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Alert,
   StyleSheet,
@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SignForm from '../components/SignForm';
-import SignButtons from '../components/SignBUttons';
+import SignButtons from '../components/SignButtons';
 import { signIn, signUp } from '../lib/auth';
 
 const SignInScreen = ({ navigation, route }) => {
@@ -33,8 +33,8 @@ const SignInScreen = ({ navigation, route }) => {
       Alert.alert('실패', '비밀번호가 일치하지 않습니다.');
       return;
     }
-
     setIsLoading(true);
+
     const info = { email, password };
     try {
       const { user } = isSignUp ? await signUp(info) : await signIn(info);
