@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:904705287138:android:3603192430494a77f88fbb",
         "android_client_info": {
-          "package_name": "com.wooksPublicGallery"
+          "package_name": "com.wookspublicgallery"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "904705287138-1admsi9adrbnk2cpsaaljp0iu6no0m3f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.wooksPublicGallery",
+            "package_name": "com.wookspublicgallery",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
