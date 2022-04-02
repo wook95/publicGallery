@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { StyleSheet, View, Pressable, Platform, Image } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { StyleSheet, View } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
 import { signOut } from '../lib/auth';
 import { createUser } from '../lib/user';
 import BorderedInput from './BorderedInput';
@@ -9,6 +10,8 @@ import { useUserContext } from '../contexts/UserContext';
 
 const SetupProfile = () => {
   const [displayName, setDisplayName] = useState('');
+  const [response, setResponse] = useState(null);
+
   const { setUser } = useUserContext();
   const navigation = useNavigation();
 
@@ -28,10 +31,29 @@ const SetupProfile = () => {
     signOut();
     navigation.goBack();
   };
+  const selectImage = () => {
+    launchImageLibrary(
+      {
+        mediaType: 'photo',
+        maxWidth: 512,
+        maxHeight: 512,
+        includeBase64: Platform.OS === 'android',
+      },
+      res => {
+        if (res.didCancel) return;
+        setResponse(res);
+      },
+    );
+  };
 
   return (
     <View style={styles.block}>
-      <View style={styles.circle} />
+      <Pressable onPress={selectImage}>
+        <Image
+          style={styles.circle}
+          source={{ uri: response?.assets[0].uri }}
+        />
+      </Pressable>
       <View style={styles.form}>
         <BorderedInput
           placeholder='닉네임'
