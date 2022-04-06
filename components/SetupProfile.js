@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Pressable, Platform, Image } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Pressable,
+  Platform,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { launchImageLibrary } from 'react-native-image-picker';
+import storage from '@react-native-firebase/storage';
 import { signOut } from '../lib/auth';
 import { createUser } from '../lib/user';
 import BorderedInput from './BorderedInput';
@@ -11,6 +19,7 @@ import { useUserContext } from '../contexts/UserContext';
 const SetupProfile = () => {
   const [displayName, setDisplayName] = useState('');
   const [response, setResponse] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { setUser } = useUserContext();
   const navigation = useNavigation();
@@ -18,19 +27,40 @@ const SetupProfile = () => {
   const { params } = useRoute();
   const { uid } = params || {};
 
-  const submitForm = () => {
+  const submitForm = async () => {
+    setIsLoading(true);
+    let photoURL = null;
+
+    if (response) {
+      const asset = response.assets[0];
+      const extension = asset.fileName.split('.').pop();
+      const reference = storage().ref(`/profile/${uid}.${extension}`);
+
+      if (Platform.OS === 'android') {
+        await reference.putString(asset.base64, 'base64', {
+          contentType: asset.type,
+        });
+      } else {
+        await reference.putFile(asset.uri);
+      }
+      photoURL = response ? await reference.getDownloadURL() : null;
+    }
+
     const user = {
       id: uid,
       displayName,
-      photoURL: null,
+      photoURL,
     };
+
     createUser(user);
     setUser(user);
   };
+
   const cancelForm = () => {
     signOut();
     navigation.goBack();
   };
+
   const selectImage = () => {
     launchImageLibrary(
       {
@@ -51,7 +81,11 @@ const SetupProfile = () => {
       <Pressable onPress={selectImage}>
         <Image
           style={styles.circle}
-          source={{ uri: response?.assets[0].uri }}
+          source={
+            response
+              ? { uri: response?.assets[0].uri }
+              : require('../assets/default-user.png')
+          }
         />
       </Pressable>
       <View style={styles.form}>
@@ -62,10 +96,14 @@ const SetupProfile = () => {
           onSubmitEditing={submitForm}
           returnKeyType='next'
         />
-        <View style={styles.buttons}>
-          <CustomButton title='다음' onPress={submitForm} hasMarginBottom />
-          <CustomButton title='취소' onPress={cancelForm} theme='secondary' />
-        </View>
+        {isLoading ? (
+          <ActivityIndicator size={32} color='#6200ee' style={styles.spinner} />
+        ) : (
+          <View style={styles.buttons}>
+            <CustomButton title='다음' onPress={submitForm} hasMarginBottom />
+            <CustomButton title='취소' onPress={cancelForm} theme='secondary' />
+          </View>
+        )}
       </View>
     </View>
   );
@@ -90,6 +128,9 @@ const styles = StyleSheet.create({
   },
   buttons: {
     marginTop: 48,
+  },
+  spinner: {
+    marginTop: 24,
   },
 });
 
